@@ -17,10 +17,7 @@ application = Flask(__name__)
 @application.route("/index.html")
 def display():
     client = query_mongo.get_client()
-    if not client:
-        return "Can't find client"
-    else:
-        return "client found"
+    return client
     # return flask.render_template('index.html')
 
 if __name__ == "__main__":

@@ -22,9 +22,12 @@ def get_client(host='localhost', port='27017', user=None, password=None):
     if MONGOCLIENT is not None:
         return MONGOCLIENT
 
-    MONGOCLIENT = MongoClient(host=host, port=port)
+    try:
+        MONGOCLIENT = MongoClient(host=host, port=port)
+    except Exception as e:
+        return e.message
 
-    return MONGOCLIENT
+    return "succeed"
 
 def get_db(name='twitter'):
     """This function returns the database for the current application.
