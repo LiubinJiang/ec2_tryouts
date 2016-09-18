@@ -16,7 +16,10 @@ application = Flask(__name__)
 
 @application.route("/index.html")
 def display():
-    client = query_mongo.get_client()
+    try:
+        client = query_mongo.get_client()
+    except:
+        return "error call client function"
     return client
     # return flask.render_template('index.html')
 

@@ -17,15 +17,10 @@ MONGOCLIENT = None
 
 def get_client(host='10.0.0.128', port='27017', user=None, password=None):
 
-    global MONGOCLIENT
-
-    if MONGOCLIENT is not None:
-        return MONGOCLIENT
-
     try:
         MONGOCLIENT = MongoClient(host=host, port=port)
     except Exception as e:
-        return e.message
+        return e
 
     return "succeed"
 
