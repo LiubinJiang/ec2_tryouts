@@ -17,10 +17,11 @@ application = Flask(__name__)
 @application.route("/index.html")
 def display():
     try:
-        client = query_mongo.get_client()
+        db = query_mongo.get_db()
+        result = query_mongo.get_one_result(db)
     except:
-        return "error call client function"
-    return client
+        return "error call search or db or client function"
+    return result
     # return flask.render_template('index.html')
 
 if __name__ == "__main__":

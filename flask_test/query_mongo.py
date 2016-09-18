@@ -7,6 +7,7 @@ __created__ = "9/18/16"
 __license__ = "Commercial. All Rights Reserved."
 
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 
 """
 File Description
@@ -20,45 +21,43 @@ def get_client(host='localhost', port=27017, user=None, password=None):
     try:
         MONGOCLIENT = MongoClient(host=host, port=port)
     except Exception as e:
-        print e
-        return "error"
-    print "succeed"
-    return "succeed"
+        return "get Mongo Client error"
 
-# def get_db(name='twitter'):
-#     """This function returns the database for the current application.
-#
-#     :param name: database name.
-#     :type name: str.
-#     :return db: database.
-#     :rtype db: pymongo.database.Database.
-#
-#     """
-#     try:
-#         client = get_client()
-#         db = client.get_database(name)
-#     except Exception as e:
-#         return None
-#     return db
-#
-#
-# def get_collections(db=None):
-#     """This function returns all collections in database, need to add more if more collections coming.
-#
-#     :param db: database.
-#     :type db: pymongo.database.Database.
-#     :return collections: all collections in database.
-#     :rtype collections: dict
-#
-#     """
-#
-#     # Collections name
-#     twitters = db.twitters
-#     collections = {
-#         'candidates': twitters,
-#
-#     }
-#     return collections
+    print "succeed"
+    return MONGOCLIENT
+
+
+def get_db(name='twitters'):
+    """This function returns the database for the current application.
+
+    :param name: database name.
+    :type name: str.
+    :return db: database.
+    :rtype db: pymongo.database.Database.
+
+    """
+    try:
+        client = get_client()
+        db = client.get_database(name)
+    except Exception as e:
+        return "get DB error"
+
+    return db
+
+
+def get_one_result(db=None):
+
+    # Collections name
+    twitter_sentiments = db.twitter_sentiments
+    document = twitter_sentiments.find_one({'_id': ObjectId('57defa98aa513c46932bb992')})
+
+    if document:
+        print "get document"
+        print document
+        print document.get('text')
+        return document.get('text')
+
+    return None
 #
 #
 # def get_one_document(collection=None, query=None):
