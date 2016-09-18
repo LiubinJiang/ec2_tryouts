@@ -15,7 +15,7 @@ File Description
 MONGOCLIENT = None
 
 
-def get_client(host='localhost', port='27017', user=None, password=None):
+def get_client(host='10.0.0.128', port='27017', user=None, password=None):
 
     global MONGOCLIENT
 
